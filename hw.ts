@@ -53,11 +53,11 @@ function isWeekend(day: Day): boolean {
 }
 // 8
 type Gender = "male" | "female";
-let myGender: Gender;
+let myGender: Gender = "female";
 // 9
 type Detalis = {
-  createAt: string;
-  updateAt: string;
+  createAt: Date;
+  updateAt: Date;
 };
 
 type MyType = {

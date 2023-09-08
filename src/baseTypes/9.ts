@@ -3,8 +3,8 @@
 */
 
 type Detalis = {
-  createAt: string;
-  updateAt: string;
+  createAt: Date;
+  updateAt: Date;
 };
 
 type MyType = {

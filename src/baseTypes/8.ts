@@ -4,6 +4,6 @@
 */
 
 type Gender = "male" | "female";
-let myGender: Gender;
+let myGender: Gender = "female";
 
 export {};

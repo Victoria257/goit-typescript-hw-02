@@ -10,9 +10,8 @@ enum UserRole {
 }
 
 type User = UserRole.admin | UserRole.editor | UserRole.guest;
-type UserType = Record<User, string>;
 
-const RoleDescription: UserType = {
+const RoleDescription: User = {
   admin: "Admin User",
   editor: "Editor User",
   guest: "Guest User",
