@@ -1,5 +1,5 @@
-let anything = -20;
-anything = 'Text';
+let anything: number | string | object = -20;
+anything = "Text";
 anything = {};
 
 export {};

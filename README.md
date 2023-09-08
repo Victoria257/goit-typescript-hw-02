@@ -13,7 +13,7 @@ let age: number = 50;
 let name: string = "Max";
 let toggle: boolean = true;
 let empty: null = null;
-let notInitialize: any;
+let notInitialize: undefined;
 let callback = (a: number): number => {
   return 100 + a;
 };
@@ -26,7 +26,7 @@ let callback = (a: number): number => {
 JavaScript змінна може зберігати значення будь-якого типу:
 
 ```ts
-let anything: any = -20;
+let anything: number | string | object = -20;
 anything = "Text";
 anything = {};
 ```
@@ -40,8 +40,10 @@ anything = {};
 ```ts
 let some: unknown;
 some = "Text";
-let str;
-str = some;
+let str: unknown;
+if (typeof some === "string") {
+  str = some;
+}
 ```
 
 Що потрібно виправити в цьому коді, щоб він став правильним та безпечним?
@@ -59,6 +61,11 @@ let person: [string, number] = ["Max", 21];
 ### Завдання 5
 
 Як ви визначите змінну в TypeScript, яка може приймати рядок або число (union type)? string|number І так само визначте змінну, яка може приймати тільки одне з двох рядкових значень: 'enable' або 'disable' (literal type)? 'enable' | 'disable'
+
+```ts
+let newType: string | number;
+let myType: "enable" | "disable";
+```
 
 ### Завдання 6
 
@@ -95,7 +102,7 @@ enum Day {
   Saturday,
 }
 function isWeekend(day: Day): boolean {
-  if (day === Saturday || day === Sunday) {
+  if (day === Day.Saturday || day === Day.Sunday) {
     return true;
   } else return false;
 }
@@ -158,13 +165,13 @@ const page2 = {
 Є функція getPromise(), яка повертає проміс, що дозволяється в масив, що містить рядки та числа. Доповніть цю функцію, використовуючи generics, щоб вона повертала правильний тип.
 
 ```ts
-function getPromise: Promise<string|number> () {
-  return new Promise((resolve) => {
-    resolve(["Text", 50]);
+function getPromise<T extends (string | number)[]>() {
+  return new Promise<T>((resolve) => {
+    resolve(["Text", 50] as T);
   });
 }
 
-getPromise().then((data) => {
+getPromise<[string, number]>().then((data) => {
   console.log(data);
 });
 ```
@@ -200,7 +207,7 @@ function compare(top: AllTypeTop, bottom: AllTypeBottom): AllType {
 У вас є функція merge, яка поєднує два об'єкти. Використовуйте generics, щоб вказати, що ці об'єкти можуть бути будь-якого типу.
 
 ```ts
-function merge<T>(objA: T, objB: T): T {
+function merge<T extends object>(objA: T, objB: T): T {
   return Object.assign(objA, objB);
 }
 ```
@@ -264,7 +271,7 @@ export enum UserRole {
   guest = "guest",
 }
 
-type User = admin | editor | guest;
+type User = UserRole.admin | UserRole.editor | UserRole.guest;
 type UserType = Record<User, string>;
 // Замініть наступний код на версію за допомогою Record
 const RoleDescription: UserType = {
@@ -296,5 +303,4 @@ type Form = {
 
 // Реалізуйте Params так, щоб унеможливити поле 'errors' з типу Form
 type Params = Omit<Form, "errors">;
-``;
 ```
